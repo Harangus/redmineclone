@@ -1,0 +1,13 @@
+.bg-login {
+    background-image: url('/images/background.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.glass-card {
+  background: rgba(0, 0, 0, 0.2);
+  color: white;
+  backdrop-filter: blur(10px); 
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
