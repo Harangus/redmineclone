@@ -1,10 +1,16 @@
 class UsersController < ApplicationController
-  before_action :ser_user, only: %i[show edit update destroy]
+  before_action :set_user, only: %i[show edit update destroy]
   def index
     @users = User.all
   end
 
-  def show;end
+  def show
+    @user = User.find(params[:id])
+  end
+
+  def edit
+    @user = User.find(params[:id])
+  end
 
   def new
     @user = User.new
@@ -29,6 +35,7 @@ class UsersController < ApplicationController
 
   def destroy
     @user.destroy
+    sign_out(@user) if user_signed_in?
     redirect_to users_path, notice: "User was deleted"
   end
 
@@ -37,6 +44,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :email, :address)
+    params.require(:user).permit(:first_name, :last_name, :email, :address, :password, :password_confirmation)
   end
 end

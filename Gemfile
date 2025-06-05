@@ -1,5 +1,6 @@
 source "https://rubygems.org"
 
+gem "kaminari"
 gem "haml"
 #for haml integration to rails
 gem "hamlit-rails"

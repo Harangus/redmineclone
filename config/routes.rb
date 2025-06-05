@@ -1,5 +1,6 @@
  Rails.application.routes.draw do
-   get "dashboard/index"
+   resources :tasks
+   resources :projects
    get "home/index"
    devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -17,7 +18,7 @@
   resources :users
 
   authenticated :user do
-    root to: 'dashboard#index', as: :authenticated_root
+    root to: 'projects#index', as: :authenticated_root
   end
 
   unauthenticated do

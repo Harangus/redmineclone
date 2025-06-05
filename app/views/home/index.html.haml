@@ -3,7 +3,7 @@
     %p Welcome back, #{current_user.email}!
     = link_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-danger"
   - else
-    .container.text-center.py-5.rounded-3.glass-card.w-100.w-md-50.w-lg-25
+    .container.text-center.py-5.rounded-3.w-100.w-md-50.w-lg-25.bg-darker
       %h1.mb-5 Welcome to Redmine Clone
 
       .d-flex.flex-column.flex-md-row.align-items-center.justify-content-center.p-1

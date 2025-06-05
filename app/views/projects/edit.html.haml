@@ -1,0 +1,8 @@
+.container-fluid.bg-darker.text-white.mt-2.p-4.rounded.shadow-lg
+    %h1.mb-2.text-info Editing project
+
+    = render 'form'
+
+    = link_to 'Show', @project, class: "btn btn-outline-info"
+
+    = link_to 'Back', projects_path, class: "btn btn-outline-info"
