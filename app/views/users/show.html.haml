@@ -1,2 +1,23 @@
-%h1 Users#show
-%p Find me in app/views/users/show.html.haml
+.container-fluid.bg-darker.text-white.mt-2.p-4.rounded.shadow-lg
+    %h1.mb-4.text-info User details 
+    %p#notice= notice
+
+    %p
+        %b Avatar:
+        = image_tag url_for(@user.avatar), class: "rounded_circle", size: "50x50"
+    %p
+        %b First name:
+        = @user.first_name
+    %p
+        %b Last name:
+        = @user.last_name
+    %p
+        %b Email:
+        = @user.email
+    %p
+        %b Address 
+        = @user.address
+
+    = link_to 'Edit', edit_user_path(@user), class: "btn btn-outline-warning"
+    
+    = link_to 'Back', users_path, class: "btn btn-outline-primary"

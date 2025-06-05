@@ -1,7 +1,8 @@
-%h1 Editing task
+.container-fluid.bg-darker.text-white.mt-2.p-4.rounded.shadow-lg
+    %h1.mb-2.text-info Editing task
 
-= render 'form'
+    = render 'form'
 
-= link_to 'Show', @task
-\|
-= link_to 'Back', tasks_path
+    = link_to 'Show', @task, class: "btn btn-outline-info"
+
+    = link_to 'Back', projects_path, class: "btn btn-outline-info"

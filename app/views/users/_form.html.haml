@@ -1,0 +1,9 @@
+= simple_form_for @user, html: { multipart: true } do |f|
+        = f.input :first_name
+        = f.input :last_name
+        = f.input :email
+        = f.input :address
+        = f.input :avatar, as: :file
+        = f.input :password, required: action_name == 'new'
+        = f.input :password_confirmation, required: action_name == 'new'
+        = f.button :submit, class: 'btn btn-primary'

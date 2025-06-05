@@ -1,2 +1,32 @@
-%h1 Users#index
-%p Find me in app/views/users/index.html.haml
+.container-fluid.bg-darker.text-white.mt-2.p-4.rounded.shadow-lg
+    %h1.mb-4.text-info Listing users
+
+    .table-responsive 
+        %table.table.table-hover.table-dark.table-stripped.table-bordered.rounded
+            %thead
+                %tr
+                    %th Avatar
+                    %th First Name
+                    %th Last Name
+                    %th Email
+                    %th.text-center Actions
+            %tbody
+                - @users.each do |user|
+                    %tr
+                        %td 
+                            - if user.avatar.attached?
+                                = image_tag url_for(user.avatar), class: "rounded-circle", size: "50x50"
+                            - else 
+                                = image_tag "/images/default_avatar.jpg", size: "50x50", class: "rounded-circle"
+                        %td= user.first_name 
+                        %td= user.last_name 
+                        %td= user.email
+                        %td.text-center
+                            = link_to 'Show', user, class: "btn btn-sm btn-outline-info mx-1 my-1"
+                            = link_to 'Edit', edit_user_path(user), class: "btn btn-sm btn-outline-warning mx-1 my-1"
+                            = link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-outline-danger mx-1 my-1"
+    .mt-4.text-center
+        = link_to '➕ New User', new_user_path, class: "btn btn-primary btn-lg"
+  
+    .mt-3.mb-2.text-center
+        = paginate @users, params: { class: "btn btn-outline-light btn-sm mx-1"}

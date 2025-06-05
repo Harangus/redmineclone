@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[show edit update destroy]
+  before_action :set_user, only: %i[show edit update destroy create]
+
   def index
-    @users = User.all
+    @users = User.page(params[:page]).per(10)
   end
 
   def show
@@ -27,7 +28,7 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      redirect_to @user, notice: "User succesfully updated"
+      redirect_to users_path, notice: "User succesfully updated"
     else
       render :edit
     end
@@ -44,6 +45,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :email, :address, :password, :password_confirmation)
+    params.require(:user).permit(:first_name, :last_name, :email, :address, :password, :password_confirmation, :avatar)
   end
 end

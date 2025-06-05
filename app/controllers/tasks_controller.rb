@@ -3,7 +3,12 @@ class TasksController < ApplicationController
 
   # GET /tasks or /tasks.json
   def index
-    @tasks = Task.all
+    if params[:project_id]
+      @project = Project.find(params[:project_id])
+      @tasks = @project.tasks
+    else
+      @tasks = Task.all
+    end
   end
 
   # GET /tasks/1 or /tasks/1.json
@@ -12,7 +17,7 @@ class TasksController < ApplicationController
 
   # GET /tasks/new
   def new
-    @task = Task.new(project_id: params[:project_id])
+    @task = Task.new(project_id: params[:project_id]) if params[:project_id]
   end
 
   # GET /tasks/1/edit
@@ -25,7 +30,7 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       if @task.save
-        format.html { redirect_to @task, notice: "Task was successfully created." }
+        format.html { redirect_to project_path(@task.project), notice: "Task was successfully created." }
         format.json { render :show, status: :created, location: @task }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -65,6 +70,6 @@ class TasksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def task_params
-      params.expect(task: [ :subject, :description, :status, :user_id, :project_id ])
+      params.expect(task: [ :subject, :description, :status, :user_id, :project_id, attachments_atributes: [:id, :file, :description, :_destroy]])
     end
 end

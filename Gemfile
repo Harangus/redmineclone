@@ -1,5 +1,7 @@
 source "https://rubygems.org"
 
+gem "cocoon"
+gem "image_processing", "~> 1.2"
 gem "kaminari"
 gem "haml"
 #for haml integration to rails

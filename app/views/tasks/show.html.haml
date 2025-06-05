@@ -1,21 +1,32 @@
-%p#notice= notice
+.container-fluid.bg-darker.text-white.mt-2.p-4.rounded.shadow-lg
+  %p#notice= notice
 
-%p
-  %b Subject:
-  = @task.subject
-%p
-  %b Description:
-  = @task.description
-%p
-  %b Status:
-  = @task.status
-%p
-  %b User:
-  = @task.user
-%p
-  %b Project:
-  = @task.project
+  %p
+    %b Subject:
+    = @task.subject
+  %p
+    %b Description:
+    = @task.description
+  %p
+    %b Status:
+    = @task.status
+  %p
+    %b User:
+    = @task.user
+  %p
+    %b Project:
+    = @task.project
 
-= link_to 'Edit', edit_task_path(@task)
-\|
-= link_to 'Back', tasks_path
+  %h3.mt-4 Attachments
+  - if @task.attachments.any?
+    %ul
+      - @task.attachments.each do |attachment|
+        %li
+          = link_to attachment.file.filename.to_s, rails_blob_path(attachment.file, disposition: "attachment"), target: "_blank"
+          - if attachment.description.present?
+            %p.text-muted= attachment.description
+  - else
+    %p.text-muted No attachments yet.
+
+  = link_to 'Edit', edit_task_path(@task), class: "btn btn-outline-warning"
+  = link_to 'Back', project_path(@task.project), class: "btn btn-outline-primary"

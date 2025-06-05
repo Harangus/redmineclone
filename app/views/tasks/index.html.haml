@@ -1,29 +1,57 @@
-%h1 Listing tasks
+.container-fluid.bg-darker.text-white.mt-2.p-4.rounded.shadow-lg
+  %h1 Listing tasks
 
-%table
-  %thead
-    %tr
-      %th Subject
-      %th Description
-      %th Status
-      %th User
-      %th Project
-      %th
-      %th
-      %th
-
-  %tbody
-    - @tasks.each do |task|
+  %table
+    %thead
       %tr
-        %td= task.subject
-        %td= task.description
-        %td= task.status
-        %td= task.user
-        %td= task.project
-        %td= link_to 'Show', task
-        %td= link_to 'Edit', edit_task_path(task)
-        %td= link_to 'Destroy', task, :method => :delete, :data => { :confirm => 'Are you sure?' }
+        %th Subject
+        %th Description
+        %th Status
+        %th User
+        %th Project
+        %th Attachments count
+        %th
+        %th
+        %th
 
-%br
+    %tbody
+      - @tasks.each do |task|
+        %tr
+          %td= task.subject
+          %td= task.description
+          %td= task.status
+          %td= task.user
+          %td= task.project
+          %td.text-center= task.attachments.size
+          %td= link_to 'Show', task
+          %td= link_to 'Edit', edit_task_path(task)
+          %td= link_to 'Destroy', task, :method => :delete, :data => { :confirm => 'Are you sure?' }
+      - @tasks.each do |task|
+        %tr
+          %td= task.subject
+          %td= task.description
+          %td= task.status
+          %td= task.user&.email || "Unassigned"
+          %td= task.project&.name || "No Project"
+          %td.text-center= task.attachments.size
+          %td= link_to 'Show', task
+          %td= link_to 'Edit', edit_task_path(task)
+          %td= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' }
 
-= link_to 'New Task', new_task_path
+        %tr.table-secondary
+          %td{ colspan: 9 }
+            - if task.attachments.any?
+              %strong Attachments:
+              %ul
+                - task.attachments.each do |att|
+                  %li
+                    = link_to att.file.filename.to_s, rails_blob_path(att.file, disposition: "attachment"), target: "_blank"
+                    - if att.description.present?
+                      = " - "
+                      = att.description
+            - else
+              %em No attachment
+  %br
+
+  = link_to 'New Task', new_task_path
+  = link_to 'Back', projects_path, class: ("btn btn-outline-primary")
