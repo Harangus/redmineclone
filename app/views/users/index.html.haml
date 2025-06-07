@@ -23,10 +23,10 @@
                         %td= user.email
                         %td.text-center
                             = link_to 'Show', user, class: "btn btn-sm btn-outline-info mx-1 my-1"
-                            = link_to 'Edit', edit_user_path(user), class: "btn btn-sm btn-outline-warning mx-1 my-1"
+                            = link_to 'Edit', edit_user_registration_path(user), class: "btn btn-sm btn-outline-warning mx-1 my-1"
                             = link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-outline-danger mx-1 my-1"
     .mt-4.text-center
-        = link_to '➕ New User', new_user_path, class: "btn btn-primary btn-lg"
+        = link_to '➕ New User', new_user_registration_path, class: "btn btn-primary btn-lg"
   
     .mt-3.mb-2.text-center
         = paginate @users, params: { class: "btn btn-outline-light btn-sm mx-1"}
