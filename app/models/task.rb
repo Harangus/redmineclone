@@ -2,7 +2,7 @@ class Task < ApplicationRecord
   belongs_to :user
   belongs_to :project
 
-  has_many :attachments, dependent: :destroy
+  has_many :attachments, inverse_of: :task, dependent: :destroy
   accepts_nested_attributes_for :attachments, allow_destroy: true
 
   validates :subject, :status, :user_id, :project_id, presence: true

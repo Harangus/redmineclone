@@ -19,14 +19,17 @@
 
   %h3.mt-4 Attachments
   - if @task.attachments.any?
-    %ul
+    .row
       - @task.attachments.each do |attachment|
-        %li
-          = link_to attachment.file.filename.to_s, rails_blob_path(attachment.file, disposition: "attachment"), target: "_blank"
-          - if attachment.description.present?
-            %p.text-muted= attachment.description
+        .col-md-6.mb-3
+          .card.bg-secondary.text-white.shadow-sm
+            .card-body
+              %h5.card-title
+                = link_to attachment.file.filename.to_s, rails_blob_path(attachment.file, disposition: "attachment"), target: "_blank", class: "text-white text-decoration-underline"
+              - if attachment.description.present?
+                %p.card-text.text-light.mt-2= attachment.description
   - else
-    %p.text-muted No attachments yet.
+    %p.text-info No attachments yet.
 
   = link_to 'Edit', edit_task_path(@task), class: "btn btn-outline-warning"
   = link_to 'Back', project_path(@task.project), class: "btn btn-outline-primary"
