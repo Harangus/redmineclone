@@ -1,5 +1,5 @@
 .container-fluid.vh-100.d-flex.flex-column.justify-content-center.align-items-center
-  .container.text-center.py-5.rounded-3.w-100.w-md-50.w-lg-25.bg-darker
+  = dark_container do
     %h2.mb-2 Log in
     = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
       .form-inputs

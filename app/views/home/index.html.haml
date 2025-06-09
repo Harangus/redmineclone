@@ -1,4 +1,4 @@
-.container-fluid.vh-100.d-flex.flex-column.justify-content-center.align-items-center.bg-login
+.container-fluid.vh-100.d-flex.flex-column.justify-content-center.align-items-center
   - if user_signed_in?
     %p Welcome back, #{current_user.email}!
     = link_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-danger"

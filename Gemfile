@@ -1,5 +1,8 @@
 source "https://rubygems.org"
 
+gem "ransack"
+gem "cancan"
+gem "rolify"
 gem "cocoon"
 gem "image_processing", "~> 1.2"
 gem "kaminari"

@@ -1,4 +1,4 @@
-.container-fluid.bg-darker.text-white.mt-2.p-4.rounded.shadow-lg
+= dark_container do
   %p#notice= notice
 
   %p
@@ -22,7 +22,7 @@
     .row
       - @task.attachments.each do |attachment|
         .col-md-6.mb-3
-          .card.bg-secondary.text-white.shadow-sm
+          .card.bg-dark.text-white.shadow-sm
             .card-body
               %h5.card-title
                 = link_to attachment.file.filename.to_s, rails_blob_path(attachment.file, disposition: "attachment"), target: "_blank", class: "text-white text-decoration-underline"

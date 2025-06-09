@@ -1,10 +1,13 @@
-= simple_form_for @user, url: users_path, html: { multipart: true } do |f|
-        = f.input :first_name
-        = f.input :last_name
-        = f.input :email
+- form_url = is_new ? create_user_path : user_path(@user)
+
+= simple_form_for @user, url: form_url, html: { multiplart: true } do |f|
+        = f.input :first_name, required: true
+        = f.input :last_name, required: true
+        = f.input :email, required: true
         = f.input :address
         = f.input :avatar, as: :file
         - if is_new
                 = f.input :password, required: action_name == 'new'
                 = f.input :password_confirmation, required: action_name == 'new'
         = f.button :submit, class: 'btn btn-primary'
+= link_to 'Back', users_path, class: "btn btn-outline-info mt-1"

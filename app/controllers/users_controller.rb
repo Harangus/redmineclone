@@ -3,7 +3,9 @@ class UsersController < ApplicationController
   before_action :set_user, only: %i[show edit update destroy]
 
   def index
-    @users = User.page(params[:page]).per(10)
+    all_users = User.all
+    @users = all_users.where.not(id: current_user.id).page(params[:page]).per(10)
+    @current_user = current_user
   end
 
   def show
@@ -36,8 +38,9 @@ class UsersController < ApplicationController
   end
 
   def destroy
+    user = @user 
     @user.destroy
-    sign_out(@user) if user_signed_in?
+    sign_out(user) if user == current_user
     redirect_to users_path, notice: "User was deleted"
   end
 

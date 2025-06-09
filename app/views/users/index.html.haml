@@ -1,7 +1,7 @@
-.container-fluid.bg-darker.text-white.mt-2.p-4.rounded.shadow-lg
+= dark_container do
     %h1.mb-4.text-info Listing users
 
-    .table-responsive 
+    .table-responsive
         %table.table.table-hover.table-dark.table-stripped.table-bordered.rounded
             %thead
                 %tr
@@ -11,6 +11,19 @@
                     %th Email
                     %th.text-center Actions
             %tbody
+                %tr.table-active
+                    %td
+                        - if @current_user.avatar.attached?
+                            = image_tag url_for(@current_user.avatar), class: "rounded-circle", size: "50x50"
+                        - else
+                            = image_tag "/images/default_avatar.jpg", size: "50x50", class: "rounded-circle"
+                    %td= @current_user.first_name
+                    %td= @current_user.last_name
+                    %td= @current_user.email
+                    %td.text-center
+                        = link_to 'Show', @current_user, class: "btn btn-sm btn-info mx-1 my-1"
+                        = link_to 'Edit', edit_user_path(@current_user), class: "btn btn-sm btn-warning mx-1 my-1"
+                        = link_to 'Destroy', @current_user, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger mx-1 my-1"
                 - @users.each do |user|
                     %tr
                         %td 
@@ -23,10 +36,10 @@
                         %td= user.email
                         %td.text-center
                             = link_to 'Show', user, class: "btn btn-sm btn-outline-info mx-1 my-1"
-                            = link_to 'Edit', edit_user_registration_path(user), class: "btn btn-sm btn-outline-warning mx-1 my-1"
+                            = link_to 'Edit', edit_user_path(user), class: "btn btn-sm btn-outline-warning mx-1 my-1"
                             = link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-outline-danger mx-1 my-1"
     .mt-4.text-center
-        = link_to '➕ New User', new_user_registration_path, class: "btn btn-primary btn-lg"
+        = link_to '➕ New User', new_user_path, class: "btn btn-primary btn-lg"
   
     .mt-3.mb-2.text-center
         = paginate @users, params: { class: "btn btn-outline-light btn-sm mx-1"}

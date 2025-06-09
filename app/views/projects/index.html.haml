@@ -1,4 +1,4 @@
-.container-fluid.bg-darker.text-white.mt-2.p-4.rounded.shadow-lg
+= dark_container do
   %h1.mb-4.text-info Listing Projects
 
   .table-responsive
@@ -7,14 +7,17 @@
         %tr
           %th Name
           %th Description
+          %th Created at
           %th Tasks count
           %th.text-center Actions
 
       %tbody
         - @projects.each do |project|
           %tr
-            %td= project.name
+            %td.cursor-pointer
+              = link_to project.name, project_path(project), class: "text-info"
             %td= project.description
+            %td= project.created_at.strftime("%d.%m.%Y %H:%M")
             %td= project.tasks.count
             %td.text-center
               = link_to 'Show', project, class: "btn btn-sm btn-outline-info mx-1 my-1"

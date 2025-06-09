@@ -15,7 +15,8 @@
 
   # Defines the root path route ("/")
   # root "posts#index"
-  resources :users
+  resources :users, only: [:index, :show, :new, :edit, :update, :destroy]
+  post '/users/create', to: 'users#create', as: :create_user
 
   authenticated :user do
     root to: 'projects#index', as: :authenticated_root
