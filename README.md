@@ -1,24 +1,38 @@
-# README
+# 🛠️ Redmine Clone
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A web application inspired by Redmine – used for managing projects, tasks, and users. Built with **Ruby on Rails**, styled with **Bootstrap**, and using **HAML** for views.
 
-Things you may want to cover:
+## ✨ Features
 
-* Ruby version
+- 🔐 User authentication and registration via **Devise**
+- 🧑‍💼 Role-based access control using **CanCanCan**
+- 📁 Project and task management with user assignment
+- 🖼️ Avatar uploading via **ActiveStorage**
+- 🔍 Search and filtering with **Ransack** + **SimpleForm**
+- 💅 Clean UI with **Bootstrap 5** and **HAML** templating
 
-* System dependencies
+## 🚀 Getting Started
 
-* Configuration
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/Harangus/redmineclone.git
+   cd redmineclone
 
-* Database creation
+2. Install dependencies
+    - bundle install
 
-* Database initialization
+3. Setup database
+    - rails db:create db:migrate
 
-* How to run the test suite
+4. Start the server
+    - rails s
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Used technologies
+- Ruby on rails
+- PostgreSQL
+- Devise
+- CanCanCan
+- Ransack
+- SimpleForm
+- Bootstrap 5
+- HAML

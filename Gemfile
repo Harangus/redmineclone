@@ -1,5 +1,6 @@
 source "https://rubygems.org"
 
+gem "haml_lint", require: false
 gem "ransack"
 gem 'cancancan', '~> 3.6'
 gem "rolify"
