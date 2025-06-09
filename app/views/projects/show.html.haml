@@ -23,19 +23,19 @@
       %table.table.table-hover.table-dark.table-striped.table-bordered.rounded
         %thead
           %tr
-            %th Subject
-            %th Status
-            %th Assigned To
-            %th Attachments count
+            %th.text-center Subject
+            %th.text-center Status
+            %th.text-center Assigned To
+            %th.text-center Attachments count
             %th
         %tbody
           - @tasks.each do |task|
             %tr
-              %td= task.subject
-              %td= task.status
-              %td= task.user&.email || "Unassigned"
-              %td= task.attachments.count
-              %td
+              %td.text-center= task.subject
+              %td.text-center= task.status
+              %td.text-center= task.user&.email || "Unassigned"
+              %td.text-center= task.attachments.count
+              %td.text-center
                 = link_to 'Show', task_path(task), class: "btn btn-sm btn-outline-info mx-1"
                 = link_to 'Edit', edit_task_path(task), class: "btn btn-sm btn-outline-warning mx-1"
                 = link_to 'Destroy', task_path(task), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-outline-danger mx-1"

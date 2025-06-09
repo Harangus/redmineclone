@@ -15,20 +15,20 @@
     %table.table.table-hover.table-dark.table-striped.table-bordered.rounded
       %thead
         %tr
-          %th Name
-          %th Description
-          %th Created at
-          %th Tasks count
+          %th.text-center Name
+          %th.text-center Description
+          %th.text-center Created at
+          %th.text-center Tasks count
           %th.text-center Actions
 
       %tbody
         - @projects.each do |project|
           %tr
-            %td.cursor-pointer
+            %td.cursor-pointer.text-center
               = link_to project.name, project_path(project), class: "text-info"
-            %td= project.description
-            %td= project.created_at.strftime("%d.%m.%Y %H:%M")
-            %td= project.tasks.count
+            %td.text-center= project.description
+            %td.text-center= project.created_at.strftime("%d.%m.%Y %H:%M")
+            %td.text-center= project.tasks.count
             %td.text-center
               = link_to 'Show', project, class: "btn btn-sm btn-outline-info mx-1 my-1"
               = link_to 'Edit', edit_project_path(project), class: "btn btn-sm btn-outline-warning mx-1 my-1"

@@ -39,10 +39,14 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    user = @user 
-    @user.destroy
-    sign_out(user) if user == current_user
-    redirect_to users_path, notice: "User was deleted"
+    user = @user
+    if @user.tasks.any?
+        redirect_to users_path, notice: "User has assigned tasks and cannot be deleted"
+    else 
+        @user.destroy
+        sign_out(user) if user == current_user
+        redirect_to users_path, notice: "User was deleted"
+    end
   end
 
   def set_user

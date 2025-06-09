@@ -5,21 +5,21 @@
         %table.table.table-hover.table-dark.table-stripped.table-bordered.rounded
             %thead
                 %tr
-                    %th Avatar
-                    %th First Name
-                    %th Last Name
-                    %th Email
+                    %th.text-center Avatar
+                    %th.text-center First Name
+                    %th.text-center Last Name
+                    %th.text-center Email
                     %th.text-center Actions
             %tbody
                 %tr.table-active
-                    %td
+                    %td.text-center
                         - if @current_user.avatar.attached?
                             = image_tag url_for(@current_user.avatar), class: "rounded-circle", size: "50x50"
                         - else
                             = image_tag "/images/default_avatar.jpg", size: "50x50", class: "rounded-circle"
-                    %td= @current_user.first_name
-                    %td= @current_user.last_name
-                    %td= @current_user.email
+                    %td.text-center= @current_user.first_name
+                    %td.text-center= @current_user.last_name
+                    %td.text-center= @current_user.email
                     %td.text-center
                         = link_to 'Show', @current_user, class: "btn btn-sm btn-info mx-1 my-1"
                         - if can? :edit, @current_user
@@ -28,14 +28,14 @@
                             = link_to 'Destroy', @current_user, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger mx-1 my-1"
                 - @users.each do |user|
                     %tr
-                        %td 
+                        %td.text-center
                             - if user.avatar.attached?
                                 = image_tag url_for(user.avatar), class: "rounded-circle", size: "50x50"
                             - else 
                                 = image_tag "/images/default_avatar.jpg", size: "50x50", class: "rounded-circle"
-                        %td= user.first_name 
-                        %td= user.last_name 
-                        %td= user.email
+                        %td.text-center= user.first_name 
+                        %td.text-center= user.last_name 
+                        %td.text-center= user.email
                         %td.text-center
                             = link_to 'Show', user, class: "btn btn-sm btn-outline-info mx-1 my-1"
                             - if can? :edit, user

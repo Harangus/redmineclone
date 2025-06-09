@@ -1,32 +1,52 @@
-.container-fluid.vh-100.d-flex.flex-column.justify-content-center.align-items-center
-  = dark_container do
-    %h2.mb-5 Sign up
+.container-fluid.vh-100.d-flex.flex-column.justify-content-center.align-items-center.bg-dark
+  .container.bg-darker.rounded-3.p-3
+    %h2.mb-4.text-center.text-info Sign up
+
     = simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
       = f.error_notification
+
       .form-inputs
-        = f.input :first_name,
-          required: true,
-          autofocus: true,
-          input_html: {autocomplete: "first_name"}
-        = f.input :last_name,
-          required: true,
-          autofocus: true,
-          input_html: {autocomplete: "last_name"}
-        = f.input :address,
-          required: true,
-          autofocus: true,
-          input_html: {autocomplete: "address"}
-        = f.input :email,
-          required: true,
-          autofocus: true,
-          input_html: { autocomplete: "email" }
-        = f.input :password,
-          required: true,
-          hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
-          input_html: { autocomplete: "new-password" }
-        = f.input :password_confirmation,
-          required: true,
-          input_html: { autocomplete: "new-password" }
-      .form-actions
-        = f.button :submit, "Sign up", class: "btn btn-primary mb-2"
-    = render "devise/shared/links"
+        .mb-3
+          = f.input :first_name,
+            required: true,
+            autofocus: true,
+            input_html: { autocomplete: "given-name", class: "form-control bg-dark text-white border-info" },
+            label_html: { class: "text-info" }
+
+        .mb-3
+          = f.input :last_name,
+            required: true,
+            input_html: { autocomplete: "family-name", class: "form-control bg-dark text-white border-info" },
+            label_html: { class: "text-info" }
+
+        .mb-3
+          = f.input :address,
+            required: true,
+            input_html: { autocomplete: "street-address", class: "form-control bg-dark text-white border-info" },
+            label_html: { class: "text-info" }
+
+        .mb-3
+          = f.input :email,
+            required: true,
+            input_html: { autocomplete: "email", class: "form-control bg-dark text-white border-info" },
+            label_html: { class: "text-info" }
+
+        .mb-3
+          = f.input :password,
+            required: true,
+            hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
+            hint_html: { class: "text-warning" },
+            input_html: { autocomplete: "new-password", class: "form-control bg-dark text-white border-info" },
+            label_html: { class: "text-info" }
+
+        .mb-3
+          = f.input :password_confirmation,
+            required: true,
+            input_html: { autocomplete: "new-password", class: "form-control bg-dark text-white border-info" },
+            label_html: { class: "text-info" }
+
+      .form-actions.text-center
+        = f.button :submit, "Sign up", class: "btn btn-lg btn-success w-100 mb-2"
+
+    .text-center.mt-3
+      = render "devise/shared/links"

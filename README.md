@@ -19,16 +19,28 @@ A web application inspired by Redmine – used for managing projects, tasks, and
    cd redmineclone
 
 2. Install dependencies
+    ```bash
     - bundle install
 
 3. Setup database
+    ```bash
     - rails db:create db:migrate
 
 4. Start the server
+    ```bash
     - rails s
 
+## Admin
+
+- To create admin user, first register a regular user via the app, then in console:
+    ```bash
+    rails c
+    u = User.find_by(email: "user@email.com")
+    u.add_role :admin
+
 ## Used technologies
-- Ruby on rails
+- Ruby (3.4.4)
+- Rails (8.0.2)
 - PostgreSQL
 - Devise
 - CanCanCan
