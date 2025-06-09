@@ -34,6 +34,9 @@
               .d-flex.gap-2
                 = link_to "Projects", projects_path, class: (current_page?(projects_path) ? "btn btn-sm btn-dark" : "btn btn-sm btn-outline-light")
                 = link_to "Users", users_path, class: (current_page?(users_path) ? "btn btn-sm btn-dark" : "btn btn-sm btn-outline-light")
+              .d-flex.gap-2
+                - if current_user&.has_role?(:admin)
+                  Admin
               .d-flex.gap-2.align-items-center
                 - if user_signed_in?
                   #{current_user.email}

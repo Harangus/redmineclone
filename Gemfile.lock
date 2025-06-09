@@ -86,7 +86,7 @@ GEM
     brakeman (7.0.2)
       racc
     builder (3.3.0)
-    cancan (1.6.10)
+    cancancan (3.6.1)
     capybara (3.40.0)
       addressable
       matrix
@@ -414,7 +414,7 @@ PLATFORMS
 DEPENDENCIES
   bootsnap
   brakeman
-  cancan
+  cancancan (~> 3.6)
   capybara
   cocoon
   debug

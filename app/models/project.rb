@@ -6,4 +6,8 @@ class Project < ApplicationRecord
     def to_s
         name
     end
+
+    def self.ransackable_attributes(auth_object = nil)
+        %w[name description]
+    end
 end

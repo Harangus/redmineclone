@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 gem "ransack"
-gem "cancan"
+gem 'cancancan', '~> 3.6'
 gem "rolify"
 gem "cocoon"
 gem "image_processing", "~> 1.2"

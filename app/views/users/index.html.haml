@@ -22,8 +22,10 @@
                     %td= @current_user.email
                     %td.text-center
                         = link_to 'Show', @current_user, class: "btn btn-sm btn-info mx-1 my-1"
-                        = link_to 'Edit', edit_user_path(@current_user), class: "btn btn-sm btn-warning mx-1 my-1"
-                        = link_to 'Destroy', @current_user, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger mx-1 my-1"
+                        - if can? :edit, @current_user
+                            = link_to 'Edit', edit_user_path(@current_user), class: "btn btn-sm btn-warning mx-1 my-1"
+                        - if can? :destroy, @current_user
+                            = link_to 'Destroy', @current_user, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger mx-1 my-1"
                 - @users.each do |user|
                     %tr
                         %td 
@@ -36,10 +38,13 @@
                         %td= user.email
                         %td.text-center
                             = link_to 'Show', user, class: "btn btn-sm btn-outline-info mx-1 my-1"
-                            = link_to 'Edit', edit_user_path(user), class: "btn btn-sm btn-outline-warning mx-1 my-1"
-                            = link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-outline-danger mx-1 my-1"
+                            - if can? :edit, user
+                                = link_to 'Edit', edit_user_path(user), class: "btn btn-sm btn-outline-warning mx-1 my-1"
+                            - if can? :destroy, user
+                                = link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-outline-danger mx-1 my-1"
     .mt-4.text-center
-        = link_to '➕ New User', new_user_path, class: "btn btn-primary btn-lg"
+        - if can? :create, User
+            = link_to '➕ New User', new_user_path, class: "btn btn-primary btn-lg"
   
     .mt-3.mb-2.text-center
         = paginate @users, params: { class: "btn btn-outline-light btn-sm mx-1"}

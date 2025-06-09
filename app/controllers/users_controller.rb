@@ -1,10 +1,11 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_user, only: %i[show edit update destroy]
+  load_and_authorize_resource
 
   def index
-    all_users = User.all
-    @users = all_users.where.not(id: current_user.id).page(params[:page]).per(10)
+    @q = User.where.not(id: current_user.id).ransack(params[:q])
+    @users = @q.result.page(params[:page]).per(10)
     @current_user = current_user
   end
 

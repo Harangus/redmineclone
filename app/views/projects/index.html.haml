@@ -1,5 +1,15 @@
 = dark_container do
   %h1.mb-4.text-info Listing Projects
+  
+  = search_form_for @q, url: projects_path, method: :get, html: { class: "mb-4" }, builder: SimpleForm::FormBuilder do |f|
+    .row.mb-3 
+      .col-md-6
+        = f.input :name_cont, label: "Name contains", input_html: { class: "form-control" }
+      .col-md-6 
+        = f.input :description_cont, label: "Description contains", input_html: { class: "form-controll" }
+    .text-end 
+      = f.button :submit, "Find", class: "btn btn-primary"
+      = link_to "Reset", projects_path, class: "btn btn-outline-info ms-2"
 
   .table-responsive
     %table.table.table-hover.table-dark.table-striped.table-bordered.rounded
