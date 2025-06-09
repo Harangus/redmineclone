@@ -32,6 +32,7 @@ A web application inspired by Redmine – used for managing projects, tasks, and
 
 ## Admin
 
+- Admin can edit, destroy every project or user
 - To create admin user, first register a regular user via the app, then in console:
     ```bash
     rails c
@@ -46,5 +47,11 @@ A web application inspired by Redmine – used for managing projects, tasks, and
 - CanCanCan
 - Ransack
 - SimpleForm
+- Kaminari
 - Bootstrap 5
 - HAML
+
+## Screenshots
+![AdminUsers](Screenshots/AdminUsers.png)
+![Users](Screenshots/Users.png)
+![Projects](Screenshots/Projects.png)

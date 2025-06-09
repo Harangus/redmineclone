@@ -32,10 +32,12 @@
             %td.text-center
               = link_to 'Show', project, class: "btn btn-sm btn-outline-info mx-1 my-1"
               = link_to 'Edit', edit_project_path(project), class: "btn btn-sm btn-outline-warning mx-1 my-1"
-              = link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-outline-danger mx-1 my-1"
+              - if can? :destroy, project
+                = link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-outline-danger mx-1 my-1"
 
   .mt-4.text-center
-    = link_to '➕ New Project', new_project_path, class: "btn btn-primary btn-lg"
+    - if can? :create, Project
+      = link_to '➕ New Project', new_project_path, class: "btn btn-primary btn-lg"
   
   .mt-3.mb-2.text-center
     = paginate @projects, params: { class: "btn btn-outline-light btn-sm mx-1"}
