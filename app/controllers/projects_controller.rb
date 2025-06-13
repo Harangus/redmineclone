@@ -4,7 +4,22 @@ class ProjectsController < ApplicationController
   # GET /projects or /projects.json
   def index
     @q = Project.ransack(params[:q])
-    @projects = @q.result.page(params[:page]).per(10)
+    @projects = @q.result
+        .left_joins(:tasks)
+        .group('projects.id')
+        .select('projects.*, COUNT(tasks.id) AS tasks_count')
+        .page(params[:page])
+        .per(10)
+
+    order_by = params.dig(:q, :s) || 'projects.created_at desc'
+
+    if order_by == 'tasks_count desc'
+        @projects = @projects.reorder('COUNT(tasks.id) DESC')
+    elsif order_by == 'tasks_count asc'
+        @projects = @projects.reorder('COUNT(tasks.id) ASC')
+    else
+        @projects = @projects.reorder(order_by)
+    end
   end
 
   # GET /projects/1 or /projects/1.json

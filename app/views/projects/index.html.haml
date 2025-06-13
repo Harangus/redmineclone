@@ -1,43 +1,52 @@
 = dark_container do
-  %h1.mb-4.text-info Listing Projects
+    %h1.mb-4.text-info Listing Projects
   
-  = search_form_for @q, url: projects_path, method: :get, html: { class: "mb-4" }, builder: SimpleForm::FormBuilder do |f|
-    .row.mb-3 
-      .col-md-6
-        = f.input :name_cont, label: "Name contains", input_html: { class: "form-control" }
-      .col-md-6 
-        = f.input :description_cont, label: "Description contains", input_html: { class: "form-controll" }
-    .text-end 
-      = f.button :submit, "Find", class: "btn btn-primary"
-      = link_to "Reset", projects_path, class: "btn btn-outline-info ms-2"
+    %button.btn.btn-primary.mb-3{"data-bs-toggle" => "collapse", "data-bs-target" => "#search-form", arin: {expanded: "false", controls: "search-form"}} Find
+    %button.btn.btn-primary.mb-3{"data-bs-toggle" => "collapse", "data-bs-target" => "#sort-form", arin: {expanded: "false", controls: "sort-form"}} Sort
 
-  .table-responsive
-    %table.table.table-hover.table-dark.table-striped.table-bordered.rounded
-      %thead
-        %tr
-          %th.text-center Name
-          %th.text-center Description
-          %th.text-center Created at
-          %th.text-center Tasks count
-          %th.text-center Actions
+    #search-form.collapse.mb-4
+        = search_form_for @q, url: projects_path, method: :get, html: { class: "mb-4" }, builder: SimpleForm::FormBuilder do |f|
+            .row.mb-3 
+                .col-md-6
+                    = f.input :name_cont, label: "Name contains", input_html: { class: "form-control" }
+                .col-md-6 
+                    = f.input :description_cont, label: "Description contains", input_html: { class: "form-controll" }
+            .text-end 
+                = f.button :submit, "Find", class: "btn btn-primary"
+                = link_to "Reset", projects_path, class: "btn btn-outline-info ms-2"
+    
+    #sort-form.collapse.mb-4
+        = sort_link(@q, :name, "Name", class: "btn btn-outline-primary")
+        = sort_link(@q, :created_at, "Created at", class: "btn btn-outline-primary")
+        = sort_link(@q, :tasks_count, "Tasks count", class: "btn btn-outline-primary")
 
-      %tbody
-        - @projects.each do |project|
-          %tr
-            %td.cursor-pointer.text-center
-              = link_to project.name, project_path(project), class: "text-info"
-            %td.text-center= project.description
-            %td.text-center= project.created_at.strftime("%d.%m.%Y %H:%M")
-            %td.text-center= project.tasks.count
-            %td.text-center
-              = link_to 'Show', project, class: "btn btn-sm btn-outline-info mx-1 my-1"
-              = link_to 'Edit', edit_project_path(project), class: "btn btn-sm btn-outline-warning mx-1 my-1"
-              - if can? :destroy, project
-                = link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-outline-danger mx-1 my-1"
+    .table-responsive
+        %table.table.table-hover.table-dark.table-striped.table-bordered.rounded
+            %thead
+                %tr
+                    %th.text-center Name
+                    %th.text-center Description
+                    %th.text-center Created at
+                    %th.text-center Tasks count
+                    %th.text-center Actions
 
-  .mt-4.text-center
-    - if can? :create, Project
-      = link_to '➕ New Project', new_project_path, class: "btn btn-primary btn-lg"
+            %tbody
+                - @projects.each do |project|
+                    %tr
+                        %td.cursor-pointer.text-center
+                            = link_to project.name, project_path(project), class: "text-info"
+                        %td.text-center= project.description
+                        %td.text-center= project.created_at.strftime("%d.%m.%Y %H:%M")
+                        %td.text-center= project.tasks.count
+                        %td.text-center
+                            = link_to 'Show', project, class: "btn btn-sm btn-outline-info mx-1 my-1"
+                            = link_to 'Edit', edit_project_path(project), class: "btn btn-sm btn-outline-warning mx-1 my-1"
+                            - if can? :destroy, project
+                                = link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-outline-danger mx-1 my-1"
+
+    .mt-4.text-center
+        - if can? :create, Project
+            = link_to '➕ New Project', new_project_path, class: "btn btn-primary btn-lg"
   
-  .mt-3.mb-2.text-center
-    = paginate @projects, params: { class: "btn btn-outline-light btn-sm mx-1"}
+    .mt-3.mb-2.text-center
+        = paginate @projects, params: { class: "btn btn-outline-light btn-sm mx-1"}
