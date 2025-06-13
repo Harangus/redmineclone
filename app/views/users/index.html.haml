@@ -23,7 +23,7 @@
                     %td.text-center
                         = link_to 'Show', @current_user, class: "btn btn-sm btn-info mx-1 my-1"
                         - if can? :edit, @current_user
-                            = link_to 'Edit', edit_user_path(@current_user), class: "btn btn-sm btn-warning mx-1 my-1"
+                            = link_to 'Edit', edit_user_registration_path(@current_user), class: "btn btn-sm btn-warning mx-1 my-1"
                         - if can? :destroy, @current_user
                             = link_to 'Destroy', @current_user, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger mx-1 my-1"
                 - @users.each do |user|

@@ -5,6 +5,7 @@ gem "ransack"
 gem 'cancancan', '~> 3.6'
 gem "rolify"
 gem "cocoon"
+gem "active_storage_validations"
 gem "image_processing", "~> 1.2"
 gem "kaminari"
 gem "haml"
