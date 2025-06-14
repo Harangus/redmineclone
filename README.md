@@ -7,6 +7,7 @@ A web application inspired by Redmine – used for managing projects, tasks, and
 - 🔐 User authentication and registration via **Devise**
 - 🧑‍💼 Role-based access control using **CanCanCan**
 - 📁 Project and task management with user assignment
+- 🔔 Notification system
 - 🖼️ Avatar uploading via **ActiveStorage**
 - 🔍 Search and filtering with **Ransack** + **SimpleForm**
 - 💅 Clean UI with **Bootstrap 5** and **HAML** templating
@@ -54,4 +55,6 @@ A web application inspired by Redmine – used for managing projects, tasks, and
 ## Screenshots
 ![AdminUsers](Screenshots/AdminUsers.png)
 ![Users](Screenshots/Users.png)
-![Projects](Screenshots/Projects.png)
+![Tasks](Screenshots/Tasks.png)
+![Notifications](Screenshots/Notifications.png)
+![UserDetails](Screenshots/UserDetails.png)
