@@ -1,5 +1,25 @@
 = dark_container do
     %h1.mb-4.text-info Listing users
+    
+    %button.btn.btn-primary.mb-3{"data-bs-toggle" => "collapse", "data-bs-target" => "#search-form", aria: {expanded: "false", controls: "search-form"}} Find
+    %button.btn.btn-primary.mb-3{"data-bs-toggle" => "collapse", "data-bs-target" => "#sort-form", aria: {expanded: "false", controls: "sort-form"}} Sort
+
+    #search-form.collapse.mb-4
+        = search_form_for @q, url: users_path, method: :get, html: { class: "mb-4" }, builder: SimpleForm::FormBuilder do |f|
+            .row.mb-3 
+                .col-md-6
+                    = f.input :first_name_or_last_name_cont, label: "First or Last name contains", input_html: { class: "form-control" }
+                .col-md-6 
+                    = f.input :email_cont, label: "Email contains", input_html: { class: "form-controll" }
+            .text-end 
+                = f.button :submit, "Find", class: "btn btn-primary"
+                = link_to "Reset", users_path, class: "btn btn-outline-info ms-2"
+
+    #sort-form.collapse.mb-4
+        = sort_link(@q, :first_name, "First Name", class: "btn btn-outline-primary")
+        = sort_link(@q, :last_name, "Last Name", class: "btn btn-outline-primary")
+        = sort_link(@q, :email, "Email", class: "btn btn-outline-primary")
+        = sort_link(@q, :tasks_count, "Tasks count", class: "btn btn-outline-primary")
 
     .table-responsive
         %table.table.table-hover.table-dark.table-stripped.table-bordered.rounded
@@ -9,6 +29,7 @@
                     %th.text-center First Name
                     %th.text-center Last Name
                     %th.text-center Email
+                    %th.text-center Tasks
                     %th.text-center Actions
             %tbody
                 %tr.table-active
@@ -20,6 +41,7 @@
                     %td.text-center= @current_user.first_name
                     %td.text-center= @current_user.last_name
                     %td.text-center= @current_user.email
+                    %td.text-center= @current_user.tasks.count
                     %td.text-center
                         = link_to 'Show', @current_user, class: "btn btn-sm btn-info mx-1 my-1"
                         - if can? :edit, @current_user
@@ -36,6 +58,7 @@
                         %td.text-center= user.first_name 
                         %td.text-center= user.last_name 
                         %td.text-center= user.email
+                        %td.text-center= user.tasks.count
                         %td.text-center
                             = link_to 'Show', user, class: "btn btn-sm btn-outline-info mx-1 my-1"
                             - if can? :edit, user

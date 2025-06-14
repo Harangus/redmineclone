@@ -5,8 +5,23 @@ class UsersController < ApplicationController
 
   def index
     @q = User.where.not(id: current_user.id).ransack(params[:q])
-    @users = @q.result.page(params[:page]).per(10)
+    @users = @q.result
+        .left_joins(:tasks)
+        .group('users.id')
+        .select('users.*, COUNT(tasks.id) AS tasks_count')
+        .page(params[:page])
+        .per(10)
     @current_user = current_user
+
+    order_by = params.dig(:q, :s) || 'users.first_name desc'
+
+    if order_by == 'tasks_count desc'
+        @users = @users.reorder('COUNT(tasks.id) DESC')
+    elsif order_by == 'tasks.count asc'
+        @users = @users.reorder('COUNT(tasks.id) ASC')
+    else 
+        @users = @users.reorder(order_by)
+    end
   end
 
   def show

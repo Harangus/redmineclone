@@ -17,6 +17,14 @@ class User < ApplicationRecord
     },
         size: { less_than: 5.megabytes, message: 'Image is too big, max 5MB' }
 
+  def self.ransackable_attributes(auth_object = nil)
+    %w[first_name last_name email tasks_count]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    %w[avatar_attachment roles]
+  end
+
   def to_s
     "#{first_name} #{last_name}"
   end
