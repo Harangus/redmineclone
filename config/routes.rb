@@ -17,7 +17,13 @@
   # root "posts#index"
   resources :users, only: [:index, :show, :new, :edit, :update, :destroy]
   post '/users/create', to: 'users#create', as: :create_user
-
+  
+  resources :notifications do
+    member do
+      patch :mark_as_read
+    end
+  end
+  
   authenticated :user do
     root to: 'projects#index', as: :authenticated_root
   end

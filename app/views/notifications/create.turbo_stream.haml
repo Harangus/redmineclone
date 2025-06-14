@@ -1,0 +1,7 @@
+= turbo_stream.prepend "notifications" do
+    = render partial: "notifications/notification", locals: { notification: @notification }
+
+= turbo_stream.replace "notification-badge" do
+    - unread = @notification.user.notifications.unread.count
+    - if unread.positive?
+        %span.position-absolute.top-0.start-100.translate-middle.badge.rounded-pill.bg-danger= unread

@@ -1,0 +1,6 @@
+%div{ id: dom_id(notification), class: "notification-item"}
+    %p.mb-1.text-info
+        = notification.message
+        = link_to "✓", mark_as_read_notification_path(notification), method: :patch, data: { turbo_confirm: "Mark this notification as read?" }, class: "btn btn-sm btn-outline-success ms-2"
+    %small.text-warning
+        = time_ago_in_words(notification.created_at)

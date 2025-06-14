@@ -13,8 +13,6 @@ class TasksController < ApplicationController
 
   # GET /tasks/1 or /tasks/1.json
   def show
-    @project = Project.find(params[:id])
-    @tasks = @project.tasks.page(params[:page]).per(10)
   end
 
   # GET /tasks/new
@@ -32,6 +30,13 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       if @task.save
+        #create notification
+        @notification = Notification.create!(
+          user: @task.user,
+          notifiable: @task,
+          read: false,
+          message: "You have been assigned a new task: #{@task.subject}"
+        )
         format.html { redirect_to project_path(@task.project), notice: "Task was successfully created." }
         format.json { render :show, status: :created, location: @task }
       else

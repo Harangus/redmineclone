@@ -34,7 +34,7 @@
                             %div.mt-3
                                 = link_to "Download", rails_blob_path(attachment.file, disposition: "attachment"), target: "_blank", class: "btn btn-sm btn-outline-light"
     - else
-        %p.text-muted No attachments yet.
+        %p.text-info No attachments yet.
 
     
     - if params[:from] == 'user'
