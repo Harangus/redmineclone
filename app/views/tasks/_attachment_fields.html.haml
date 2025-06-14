@@ -1,4 +1,9 @@
 .nested-fields
-  = f.file_field :file
-  = f.text_field :description, placeholder: "Attachment description"
-  = link_to_remove_association "Remove", f, class: "btn btn-sm btn-outline-danger"
+    - if f.object.errors.any?
+        .alert.alert-danger.p-2.rounded
+            %ul.mb-0
+                - f.object.errors.full_messages.each do |msg|
+                    %li= msg
+    = f.file_field :file
+    = f.text_field :description, placeholder: "Attachment description"
+    = link_to_remove_association "Remove", f, class: "btn btn-sm btn-outline-danger"
