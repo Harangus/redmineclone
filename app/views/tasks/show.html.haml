@@ -17,19 +17,27 @@
         %b Project:
         = @task.project
 
-    %h3.mt-4 Attachments
-    - if @task.attachments.any?
-        .row
-        - @task.attachments.each do |attachment|
-            .col-md-6.mb-3
-            .card.bg-dark.text-white.shadow-sm
-                .card-body
-                %h5.card-title
-                    = link_to attachment.file.filename.to_s, rails_blob_path(attachment.file, disposition: "attachment"), target: "_blank", class: "text-white text-decoration-underline"
-                - if attachment.description.present?
-                    %p.card-text.text-light.mt-2= attachment.description
-    - else
-        %p.text-info No attachments yet.
+    %h3.mt-4.text-info Attachments
 
-    = link_to 'Edit', edit_task_path(@task), class: "btn btn-outline-warning"
-    = link_to 'Back', project_path(@task.project), class: "btn btn-outline-primary"
+    - if @task.attachments.any?
+        .row.row-cols-1.row-cols-md-2.g-3.mb-2
+            - @task.attachments.each do |attachment|
+                .col
+                    .container.border.border-info.rounded.text-white.h-100.p-2
+                        .card-body.d-flex.flex-column.justify-content-between
+                            %div
+                                %h5.card-title
+                                    📎
+                                    = link_to attachment.file.filename.to_s, rails_blob_path(attachment.file, disposition: "attachment"), target: "_blank", class: "text-white text-decoration-underline"
+                                - if attachment.description.present?
+                                    %p.card-text.text-light.mt-2= attachment.description
+                            %div.mt-3
+                                = link_to "Download", rails_blob_path(attachment.file, disposition: "attachment"), target: "_blank", class: "btn btn-sm btn-outline-light"
+    - else
+        %p.text-muted No attachments yet.
+
+    
+    - if params[:from] == 'user'
+        = link_to 'Back', user_path(@task.user), class: "btn btn-outline-primary"
+    - else
+        = link_to 'Back', project_path(@task.project), class: "btn btn-outline-primary"

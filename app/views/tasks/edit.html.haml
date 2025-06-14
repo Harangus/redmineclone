@@ -2,7 +2,8 @@
     %h1.mb-2.text-info Editing task
 
     = render 'form'
-
-    = link_to 'Show', @task, class: "btn btn-outline-info"
-
-    = link_to 'Back', projects_path, class: "btn btn-outline-info"
+    
+    - if params[:from] == 'user'
+        = link_to 'Back', user_path(@task.user), class: "btn btn-outline-info"
+    - else 
+        = link_to 'Back', project_path(@task.project), class: "btn btn-outline-info"

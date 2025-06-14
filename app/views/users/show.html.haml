@@ -24,3 +24,28 @@
     = link_to 'Edit', edit_user_registration_path(@user), class: "btn btn-outline-warning"
     
     = link_to 'Back', users_path, class: "btn btn-outline-primary"
+    
+    - if @tasks.any?
+        %h3.mt-2 Tasks for this user
+        .table-responsive.mt-2
+            %table.table.table-hover.table-dark.table-striped.table-bordered.rounded
+                %thead
+                    %tr
+                        %th.text-center Subject
+                        %th.text-center Status
+                        %th.text-center Assigned To
+                        %th.text-center Attachments count
+                        %th
+                %tbody
+                    - @tasks.each do |task|
+                        %tr
+                        %td.text-center= task.subject
+                        %td.text-center= task.status
+                        %td.text-center= task.user&.email || "Unassigned"
+                        %td.text-center= task.attachments.count
+                        %td.text-center
+                            = link_to 'Show', task_path(task, from: 'user'), class: "btn btn-sm btn-outline-info mx-1"
+                            = link_to 'Edit', edit_task_path(task, from: 'user'), class: "btn btn-sm btn-outline-warning mx-1"
+                            = link_to 'Destroy', task_path(task), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-outline-danger mx-1"
+    - else
+        %p.text-info.mt-2 No tasks yet for this user.
