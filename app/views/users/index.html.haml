@@ -70,4 +70,4 @@
             = link_to '➕ New User', new_user_path, class: "btn btn-primary btn-lg"
   
     .mt-3.mb-2.text-center
-        = paginate @users, params: { class: "btn btn-outline-light btn-sm mx-1"}
+        = paginate @users, theme: 'bootstrap-5', pagination_class: "pagination-sm flex-wrap justify-content-center", nav_class: "d-inline-block"

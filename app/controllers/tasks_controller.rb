@@ -5,14 +5,16 @@ class TasksController < ApplicationController
   def index
     if params[:project_id]
       @project = Project.find(params[:project_id])
-      @tasks = @project.tasks
+      @tasks = @project.tasks.page(params[:page]).per(10)
     else
-      @tasks = Task.all
+      @tasks = Task.page(params[:page]).per(10)
     end
   end
 
   # GET /tasks/1 or /tasks/1.json
   def show
+    @project = Project.find(params[:id])
+    @tasks = @project.tasks.page(params[:page]).per(10)
   end
 
   # GET /tasks/new

@@ -43,5 +43,6 @@
     %p.text-info No tasks yet for this project.
 
   .mt-3
-    = link_to '➕ Add New Task', new_task_path(project_id: @project.id), class: "btn btn-primary"
-
+    = link_to '➕ Add New Task', new_task_path(project_id: @project.id), class: "btn btn-primary mb-2"
+  .mt-3.mb-2.text-center
+    = paginate @tasks, theme: 'bootstrap-5', pagination_class: "pagination-sm flex-wrap justify-content-center", nav_class: "d-inline-block"

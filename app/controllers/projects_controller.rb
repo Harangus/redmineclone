@@ -24,7 +24,7 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1 or /projects/1.json
   def show
-    @tasks = @project.tasks.includes(:user).order(created_at: :desc)
+    @tasks = @project.tasks.includes(:user).order(created_at: :desc).page(params[:page]).per(10)
   end
 
   # GET /projects/new

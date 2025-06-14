@@ -8,6 +8,7 @@ gem "cocoon"
 gem "active_storage_validations"
 gem "image_processing", "~> 1.2"
 gem "kaminari"
+gem "bootstrap5-kaminari-views"
 gem "haml"
 #for haml integration to rails
 gem "hamlit-rails"

@@ -49,4 +49,4 @@
             = link_to '➕ New Project', new_project_path, class: "btn btn-primary btn-lg"
   
     .mt-3.mb-2.text-center
-        = paginate @projects, params: { class: "btn btn-outline-light btn-sm mx-1"}
+        = paginate @projects, theme: 'bootstrap-5', pagination_class: "pagination-sm flex-wrap justify-content-center", nav_class: "d-inline-block"
