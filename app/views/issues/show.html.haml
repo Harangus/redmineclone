@@ -1,0 +1,23 @@
+= dark_container do
+    %p#notice= notice
+    
+    %p
+        %b Title:
+        = @issue.title
+    %p
+        %b Description:
+        = @issue.description
+    %p
+        %b Status:
+        = @issue.status
+    %p
+        %b Priority
+        = @issue.priority
+    %p
+        %b User:
+        = @issue.user
+    %p
+        %b Project:
+        = @issue.project
+    
+    = link_to 'Back', project_issues_path(@project), class: "btn btn-outline-primary"

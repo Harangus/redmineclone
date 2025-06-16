@@ -1,0 +1,40 @@
+= dark_container do
+    - if notice
+        %p#notice= notice
+    - if alert 
+        %p#alert.text-danger= alert
+
+    %p
+        %b Name:
+        = @project.name
+    %p
+        %b Description:
+        = @project.description
+    
+    = link_to 'New issue', new_project_issue_path(@project), class: "btn btn-outline-primary"
+    = link_to 'Back', project_path(@project), class: "btn btn-outline-primary"
+    
+    %h2.text-info.mt-4 Issues for this Project
+    - if @issues.any?
+        .table-responsive
+            %table.table.table-hover.table-dark.table-striped.table-bordered.rounded
+                %thead
+                    %tr
+                        %th.text-center Title
+                        %th.text-center Status
+                        %th.text-center Priority
+                        %th.text-center Assigned To
+                        %th
+                %tbody
+                    - @issues.each do |issue|
+                        %tr
+                            %td.text-center= issue.title
+                            %td.text-center= issue.status.present? ? issue.status.humanize : "Not set"
+                            %td.text-center= issue.priority.present? ? issue.priority.humanize : "Not set"
+                            %td.text-center= issue.user&.email || "Unassigned"
+                            %td.text-center
+                                = link_to 'Show', project_issue_path(@project, issue), class: "btn btn-sm btn-outline-info mx-1"
+                                = link_to 'Edit', edit_project_issue_path(@project, issue), class: "btn btn-sm btn-outline-warning mx-1"
+                                = link_to 'Destroy', project_issue_path(@project, issue), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-outline-danger mx-1"
+    - else
+        %p.text-info No issues yet for this project.

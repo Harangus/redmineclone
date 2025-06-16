@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_14_142240) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_15_102416) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -48,6 +48,19 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_14_142240) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["task_id"], name: "index_attachments_on_task_id"
+  end
+
+  create_table "issues", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.string "status"
+    t.string "priority"
+    t.bigint "project_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_issues_on_project_id"
+    t.index ["user_id"], name: "index_issues_on_user_id"
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -117,6 +130,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_14_142240) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "attachments", "tasks"
+  add_foreign_key "issues", "projects"
+  add_foreign_key "issues", "users"
   add_foreign_key "notifications", "users"
   add_foreign_key "tasks", "projects"
   add_foreign_key "tasks", "users"

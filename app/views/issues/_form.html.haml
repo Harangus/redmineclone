@@ -1,0 +1,12 @@
+= simple_form_for [@project, @issue] do |f|
+    = f.error_notification
+
+    = f.input :title, input_html: { class: "form-control" }
+    = f.input :description, as: :text, input_html: { rows: 5, class: "form-control" }
+
+    = f.input :status, collection: Issue.statuses.keys.map { |s| [s.humanize, s] }, prompt: "Select status"
+    = f.input :priority, collection: Issue.priorities.keys.map { |p| [p.humanize, p] }, prompt: "Select priority"
+
+    = f.input :user_id, collection: User.all, include_blank: true, label: "Assign to user"
+
+    = f.button :submit, class: "btn btn-primary"

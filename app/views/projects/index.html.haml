@@ -28,6 +28,7 @@
                     %th.text-center Description
                     %th.text-center Created at
                     %th.text-center Tasks count
+                    %th.text-center Issues count
                     %th.text-center Actions
 
             %tbody
@@ -38,6 +39,7 @@
                         %td.text-center= project.description
                         %td.text-center= project.created_at.strftime("%d.%m.%Y %H:%M")
                         %td.text-center= project.tasks.count
+                        %td.text-center= project.issues.count
                         %td.text-center
                             = link_to 'Show', project, class: "btn btn-sm btn-outline-info mx-1 my-1"
                             = link_to 'Edit', edit_project_path(project), class: "btn btn-sm btn-outline-warning mx-1 my-1"

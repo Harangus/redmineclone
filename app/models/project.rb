@@ -1,5 +1,6 @@
 class Project < ApplicationRecord
     has_many :tasks, dependent: :restrict_with_error
+    has_many :issues, dependent: :destroy
 
     validates :name, presence: true
 
