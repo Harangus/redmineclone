@@ -1,3 +1,8 @@
 = dark_container do
     %h1.mb-2.text-info Edit issue
     = render 'form'
+
+    - if params[:from] == 'user'
+        = link_to 'Back', user_path(@issue.user), class: "btn btn-outline-info"
+    - else
+        = link_to 'Back', project_issues_path(@issue.project), class: "btn btn-outline-info"

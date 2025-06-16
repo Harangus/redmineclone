@@ -1,23 +1,26 @@
 = dark_container do
-    %p#notice= notice
+    - if notice.present?
+        %p#notice.alert.alert-info= notice
 
-    %p
-        %b Subject:
-        = @task.subject
-    %p
-        %b Description:
-        = @task.description
-    %p
-        %b Status:
-        = @task.status
-    %p
-        %b User:
-        = @task.user
-    %p
-        %b Project:
-        = @task.project
+    %h1.mb-4.text-info.border-bottom.pb-2 Task details
 
-    %h3.mt-4.text-info Attachments
+    %dl.row.mb-4
+        %dt.col-sm-3 Subject:
+        %dd.col-sm-9= @task.subject
+
+        %dt.col-sm-3 Description:
+        %dd.col-sm-9= @task.description
+
+        %dt.col-sm-3 Status:
+        %dd.col-sm-9= @task.status
+        
+        %dt.col-sm-3 Assigned User:
+        %dd.col-sm-9= @task.user&.email
+        
+        %dt.col-sm-3 Project
+        %dd.col-sm-9= @task.project&.name
+
+    %h3.mt-5.mb-3.text-info.border-bottom.pb-2 Attachments
 
     - if @task.attachments.any?
         .row.row-cols-1.row-cols-md-2.g-3.mb-2

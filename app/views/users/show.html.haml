@@ -1,51 +1,94 @@
 = dark_container do
-    %h1.mb-4.text-info User details 
-    %p#notice= notice
+    %h1.mb-4.text-info.border-bottom.pb-2 User details
+    - if notice.present?
+        %p#notice.alert.alert-info= notice
 
-    %p
-        %b Avatar:
+    .d-flex.align-items-center.mb-3
         - if @user.avatar.attached?
-            = image_tag url_for(@user.avatar), class: "rounded-circle", size: "50x50"
-        - else 
-            = image_tag "/images/default_avatar.jpg", class: "rounded-circle", size: "50x50"
-    %p
-        %b First name:
-        = @user.first_name
-    %p
-        %b Last name:
-        = @user.last_name
-    %p
-        %b Email:
-        = @user.email
-    %p
-        %b Address 
-        = @user.address
+            = image_tag url_for(@user.avatar), class: "rounded-circle border border-info", size: "25x25"
+        - else
+            = image_tag "/images/default_avatar.jpg", class: "rounded-circle border border-secondary", size: "25x25"
 
-    = link_to 'Edit', edit_user_registration_path(@user), class: "btn btn-outline-warning"
-    
-    = link_to 'Back', users_path, class: "btn btn-outline-primary"
-    
-    - if @tasks.any?
-        %h3.mt-2 Tasks for this user
-        .table-responsive.mt-2
-            %table.table.table-hover.table-dark.table-striped.table-bordered.rounded
-                %thead
-                    %tr
-                        %th.text-center Subject
-                        %th.text-center Status
-                        %th.text-center Assigned To
-                        %th.text-center Attachments count
-                        %th
-                %tbody
-                    - @tasks.each do |task|
+    %dl.row.mb-4
+        %dt.col-sm-3 First name:
+        %dd.col-sm-9= @user.first_name.presence
+
+        %dt.col-sm-3 Last name:
+        %dd.col-sm-9= @user.last_name.presence
+
+        %dt.col-sm-3 Email:
+        %dd.col-sm-9= @user.email
+
+        %dt.col-sm-3 Address:
+        %dd.col-sm-9= @user.address.presence
+
+    .d-flex.gap-2
+        = link_to edit_user_registration_path(@user), class: "btn btn-outline-warning" do
+            %i.bi.bi-pencil-square.me-1
+            Edit
+        = link_to users_path, class: "btn btn-outline-primary" do
+            %i.bi.bi-arrow-left-circle.me-1
+            Back
+
+    /-----------------------------------------------------------
+
+    %h3.mb-4.mt-4.text-info.border-bottom.pb-2 Issues for this user
+
+    - if @issues.any?
+        #issuesCollapse.text-white.mb-3
+            %button.btn.btn-sm.btn-outline-light{ type: "button", "data-bs-toggle" => "collapse", "data-bs-target" => "#collapseIssues", "aria-expanded" => "false", "aria-controls" => "collapseIssues" }
+                Toggle
+
+        #collapseIssues.collapse
+            .table-responsive.mt-2
+                %table.table.table-hover.table-dark.table-striped.table-bordered.mb-0
+                    %thead
                         %tr
-                        %td.text-center= task.subject
-                        %td.text-center= task.status
-                        %td.text-center= task.user&.email || "Unassigned"
-                        %td.text-center= task.attachments.count
-                        %td.text-center
-                            = link_to 'Show', task_path(task, from: 'user'), class: "btn btn-sm btn-outline-info mx-1"
-                            = link_to 'Edit', edit_task_path(task, from: 'user'), class: "btn btn-sm btn-outline-warning mx-1"
-                            = link_to 'Destroy', task_path(task), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-outline-danger mx-1"
+                            %th.text-center Title
+                            %th.text-center Status
+                            %th.text-center Priority
+                            %th
+                    %tbody
+                        - @issues.each do |issue|
+                            %tr
+                                %td.text-center= issue.title
+                                %td.text-center= issue.status
+                                %td.text-center= issue.priority
+                                %td.text-center
+                                    = link_to 'Show', project_issue_path(issue.project, issue, from: 'user'), class: "btn btn-sm btn-outline-info mx-1"
+                                    = link_to 'Edit', edit_project_issue_path(issue.project, issue, from: 'user'), class: "btn btn-sm btn-outline-warning mx-1"
+                                    = link_to 'Destroy', project_issue_path(issue.project, issue), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-outline-danger mx-1"
+    - else
+        %p.text-info.mt-2 No issues yet for this user.
+
+    /----------------------------------------------------------
+    
+    %h3.mb-4.mt-4.text-info.border-bottom.pb-2 Tasks for this user
+    - if @tasks.any?
+        #tasksCollapse.text-white.mb-3
+            %button.btn.btn-sm.btn-outline-light{ type: "button", "data-bs-toggle" => "collapse", "data-bs-target" => "#collapseTasks", "aria-expanded" => "false", "aria-controls" => "collapseTasks" }
+                Toggle
+        
+        #collapseTasks.collapse
+            .table-responsive.mt-2
+                %table.table.table-hover.table-dark.table-striped.table-bordered.mb-0
+                    %thead
+                        %tr
+                            %th.text-center Subject
+                            %th.text-center Status
+                            %th.text-center Assigned To
+                            %th.text-center Attachments count
+                            %th
+                    %tbody
+                        - @tasks.each do |task|
+                            %tr
+                                %td.text-center= task.subject
+                                %td.text-center= task.status
+                                %td.text-center= task.user&.email || "Unassigned"
+                                %td.text-center= task.attachments.count
+                                %td.text-center
+                                    = link_to 'Show', task_path(task, from: 'user'), class: "btn btn-sm btn-outline-info mx-1"
+                                    = link_to 'Edit', edit_task_path(task, from: 'user'), class: "btn btn-sm btn-outline-warning mx-1"
+                                    = link_to 'Destroy', task_path(task), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-outline-danger mx-1"
     - else
         %p.text-info.mt-2 No tasks yet for this user.

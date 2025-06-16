@@ -26,6 +26,7 @@ class UsersController < ApplicationController
 
   def show
     @tasks = @user.tasks.includes(:user).order(created_at: :desc)
+    @issues = @user.issues.includes(:user).order(created_at: :desc)
   end
 
   def edit

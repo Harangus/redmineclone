@@ -1,23 +1,29 @@
 = dark_container do
-    %p#notice= notice
+    - if notice.present?
+        %p#notice.alert.alert-info= notice
     
-    %p
-        %b Title:
-        = @issue.title
-    %p
-        %b Description:
-        = @issue.description
-    %p
-        %b Status:
-        = @issue.status
-    %p
-        %b Priority
-        = @issue.priority
-    %p
-        %b User:
-        = @issue.user
-    %p
-        %b Project:
-        = @issue.project
+    %h1.mb-4.text-info.border-bottom.pb-2 Issue details
+
+    %dl.row.mb-4
+        %dt.col-sm-3 Title:
+        %dd.col-sm-9= @issue.title
+
+        %dt.col-sm-3 Description:
+        %dd.col-sm-9= @issue.description
+
+        %dt.col-sm-3 Status:
+        %dd.col-sm-9= @issue.status
+        
+        %dt.col-sm-3 Priority
+        %dd.col-sm-9= @issue.priority
+
+        %dt.col-sm-3 Assigned User:
+        %dd.col-sm-9= @issue.user
+        
+        %dt.col-sm-3 Project
+        %dd.col-sm-9= @issue.project
     
-    = link_to 'Back', project_issues_path(@project), class: "btn btn-outline-primary"
+    - if params[:from] == 'user'
+        = link_to 'Back', user_path(@issue.user), class: "btn btn-outline-primary"
+    - else
+        = link_to 'Back', project_issues_path(@project), class: "btn btn-outline-primary"

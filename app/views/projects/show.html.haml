@@ -1,48 +1,55 @@
 = dark_container do
-  
-  - if notice
-    %p#notice= notice
-  - if alert 
-    %p#alert.text-danger= alert
+    %h1.mb-4.text-info.border-bottom.pb-2 Project details
+    - if notice
+        %p#notice.alert.alert-info= notice
+    - if alert
+        %p#alert.text-danger= alert
 
-  %p
-    %b Name:
-    = @project.name
-  %p
-    %b Description:
-    = @project.description
+    %dl.row.mb-4
+        %dt.col-sm-3 Name:
+        %dd.col-sm-9= @project.name.presence
 
-  = link_to 'Edit', edit_project_path(@project), class: "btn btn-outline-info"
-  = link_to 'Issues', project_issues_path(@project), class: "btn btn-outline-info"
-  = link_to 'Back', projects_path, class: "btn btn-outline-primary"
+        %dt.col-sm-3 Description:
+        %dd.col-sm-9= @project.description.presence
 
-  %h2.text-info.mt-4 Tasks for this Project
+    .d-flex.gap-2
+        = link_to edit_project_path(@project), class: "btn btn-outline-info" do
+            %i.bi.bi-pencil-square.me-1
+            Edit
+        = link_to project_issues_path(@project), class: "btn btn-outline-info" do
+            %i.bi.bi-exclamation-circle.me-1
+            Issues
+        = link_to projects_path, class: "btn btn-outline-primary" do
+            %i.bi.bi-arrow-left-circle.me-1
+            Back
 
-  - if @tasks.any?
-    .table-responsive
-      %table.table.table-hover.table-dark.table-striped.table-bordered.rounded
-        %thead
-          %tr
-            %th.text-center Subject
-            %th.text-center Status
-            %th.text-center Assigned To
-            %th.text-center Attachments count
-            %th
-        %tbody
-          - @tasks.each do |task|
-            %tr
-              %td.text-center= task.subject
-              %td.text-center= task.status
-              %td.text-center= task.user&.email || "Unassigned"
-              %td.text-center= task.attachments.count
-              %td.text-center
-                = link_to 'Show', task_path(task), class: "btn btn-sm btn-outline-info mx-1"
-                = link_to 'Edit', edit_task_path(task), class: "btn btn-sm btn-outline-warning mx-1"
-                = link_to 'Destroy', task_path(task), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-outline-danger mx-1"
-  - else
-    %p.text-info No tasks yet for this project.
 
-  .mt-3
-    = link_to '➕ Add New Task', new_task_path(project_id: @project.id), class: "btn btn-primary mb-2"
-  .mt-3.mb-2.text-center
-    = paginate @tasks, theme: 'bootstrap-5', pagination_class: "pagination-sm flex-wrap justify-content-center", nav_class: "d-inline-block"
+    %h3.mb-4.mt-4.text-info.border-bottom.pb-2 Tasks for this project
+    - if @tasks.any?
+        .table-responsive
+            %table.table.table-hover.table-dark.table-striped.table-bordered.rounded
+                %thead
+                    %tr
+                        %th.text-center Subject
+                        %th.text-center Status
+                        %th.text-center Assigned To
+                        %th.text-center Attachments count
+                        %th
+                %tbody
+                    - @tasks.each do |task|
+                        %tr
+                            %td.text-center= task.subject
+                            %td.text-center= task.status
+                            %td.text-center= task.user&.email || "Unassigned"
+                            %td.text-center= task.attachments.count
+                            %td.text-center
+                                = link_to 'Show', task_path(task), class: "btn btn-sm btn-outline-info mx-1"
+                                = link_to 'Edit', edit_task_path(task), class: "btn btn-sm btn-outline-warning mx-1"
+                                = link_to 'Destroy', task_path(task), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-outline-danger mx-1"
+    - else
+        %p.text-info No tasks yet for this project.
+
+    .mt-3
+        = link_to '➕ Add New Task', new_task_path(project_id: @project.id), class: "btn btn-primary mb-2"
+    .mt-3.mb-2.text-center
+        = paginate @tasks, theme: 'bootstrap-5', pagination_class: "pagination-sm flex-wrap justify-content-center", nav_class: "d-inline-block"
