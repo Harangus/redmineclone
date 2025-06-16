@@ -8,6 +8,8 @@ A web application inspired by Redmine – used for managing projects, tasks, and
 - 🧑‍💼 Role-based access control using **CanCanCan**
 - 📁 Project and task management with user assignment
 - 🔔 Notification system
+- 🐛 Issue tracking and reporting system
+- 💌 Email previewing in development with **Letter Opener**
 - 🖼️ Avatar uploading via **ActiveStorage**
 - 🔍 Search and filtering with **Ransack** + **SimpleForm**
 - 💅 Clean UI with **Bootstrap 5** and **HAML** templating

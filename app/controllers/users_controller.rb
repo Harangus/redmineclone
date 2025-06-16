@@ -57,6 +57,8 @@ class UsersController < ApplicationController
     user = @user
     if @user.tasks.any?
         redirect_to users_path, notice: "User has assigned tasks and cannot be deleted"
+    elsif @user.issues.any?
+        redirect_to users_path, notice: "User has assigned issues and cannot be deleted"
     else 
         @user.destroy
         sign_out(user) if user == current_user
