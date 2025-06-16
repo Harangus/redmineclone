@@ -20,6 +20,7 @@ class IssuesController < ApplicationController
   def create
     @issue = @project.issues.new(issue_params)
     if @issue.save
+      # Send a notification to the assigned user when a new issue is created
       @notification = Notification.create!(
         user: @issue.user,
         notifiable: @issue,

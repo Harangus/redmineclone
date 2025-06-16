@@ -30,6 +30,7 @@
                     %th.text-center Last Name
                     %th.text-center Email
                     %th.text-center Tasks
+                    %th.text-center Issues
                     %th.text-center Actions
             %tbody
                 %tr.table-active
@@ -42,6 +43,7 @@
                     %td.text-center= @current_user.last_name
                     %td.text-center= @current_user.email
                     %td.text-center= @current_user.tasks.count
+                    %td.text-center= @current_user.issues.count
                     %td.text-center
                         = link_to 'Show', @current_user, class: "btn btn-sm btn-info mx-1 my-1"
                         - if can? :edit, @current_user
@@ -59,6 +61,7 @@
                         %td.text-center= user.last_name 
                         %td.text-center= user.email
                         %td.text-center= user.tasks.count
+                        %td.text-center= user.issues.count
                         %td.text-center
                             = link_to 'Show', user, class: "btn btn-sm btn-outline-info mx-1 my-1"
                             - if can? :edit, user

@@ -4,6 +4,8 @@ class UsersController < ApplicationController
   load_and_authorize_resource
 
   def index
+    # Exclude current user from results, apply search filtering with Ransack
+    # Join with tasks to get count of assigned tasks per user
     @q = User.where.not(id: current_user.id).ransack(params[:q])
     @users = @q.result
         .left_joins(:tasks)
@@ -25,6 +27,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    # Load all tasks and issues assigned to this user for display
     @tasks = @user.tasks.includes(:user).order(created_at: :desc)
     @issues = @user.issues.includes(:user).order(created_at: :desc)
   end
@@ -55,6 +58,8 @@ class UsersController < ApplicationController
   end
 
   def destroy
+    # Prevent deletion if the user has assigned tasks or issues
+    # Sign out the user if they delete themselves
     user = @user
     if @user.tasks.any?
         redirect_to users_path, notice: "User has assigned tasks and cannot be deleted"

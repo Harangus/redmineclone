@@ -3,6 +3,8 @@ class TasksController < ApplicationController
 
   # GET /tasks or /tasks.json
   def index
+    # If we're nested under a project, show only tasks for that project
+    # Otherwise show all tasks
     if params[:project_id]
       @project = Project.find(params[:project_id])
       @tasks = @project.tasks.page(params[:page]).per(10)
@@ -30,7 +32,7 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       if @task.save
-        #create notification
+        # Notify the assigned user about the new task
         @notification = Notification.create!(
           user: @task.user,
           notifiable: @task,
@@ -61,6 +63,7 @@ class TasksController < ApplicationController
 
   # DELETE /tasks/1 or /tasks/1.json
   def destroy
+    # Save project reference before destroying the task so we can redirect properly
     project = @task.project
     @task.destroy!
 

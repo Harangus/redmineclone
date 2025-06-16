@@ -3,6 +3,8 @@ class ProjectsController < ApplicationController
 
   # GET /projects or /projects.json
   def index
+    # Ransack search with task count per project
+    # We're joining tasks to count them, even if a project has none (LEFT JOIN)
     @q = Project.ransack(params[:q])
     @projects = @q.result
         .left_joins(:tasks)
